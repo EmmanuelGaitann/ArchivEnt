@@ -8,7 +8,6 @@ const photosJour1 = [
     "jour1/photo2.jpg",
     "jour1/photo3.jpg",
     "jour1/photo4.jpg",
-    "jour1/photo5.jpg",
     "jour1/photo6.jpg",
     "jour1/photo7.jpg",
     "jour1/photo8.jpg",
@@ -82,8 +81,8 @@ const photosJour1 = [
     "jour1/photo82.jpg",
     "jour1/photo84.jpg",
     "jour1/photo85.jpg",
+    "jour1/photo85.jpg",
     "jour1/photo86.jpg",
-    "jour1/photo87.jpg",
 ];
 
 
@@ -109,9 +108,24 @@ function displayPhotos(list) {
         col.className = "col-6 col-md-4 col-lg-3 gallery-item";
 
         col.innerHTML = `
-            <a href="${photo.src}" class="glightbox" data-gallery="cosumaf">
-                <img src="${photo.src}" class="img-fluid shadow-sm">
-            </a>
+            <div class="position-relative">
+                <a href="${photo.src}" class="glightbox" data-gallery="cosumaf">
+                    <img src="${photo.src}" class="img-fluid shadow-sm">
+                </a>
+
+                <div class="photo-actions">
+
+                    <!-- Télécharger -->
+                    <a href="${photo.src}" download>
+                        <i class="bi bi-download"></i>
+                    </a>
+
+                    <!-- Partager -->
+                    <a href="#" onclick="sharePhoto('${photo.src}')">
+                        <i class="bi bi-share-fill"></i>
+                    </a>
+                </div>
+            </div>
         `;
 
         gallery.appendChild(col);
@@ -119,6 +133,7 @@ function displayPhotos(list) {
 
     GLightbox({ selector: ".glightbox" });
 }
+
 
 displayPhotos(allPhotos);
 
@@ -136,4 +151,16 @@ function filterPhotos(filter) {
     if (filter === "all") return displayPhotos(allPhotos);
 
     displayPhotos(allPhotos.filter(p => p.day === filter));
+}
+
+function sharePhoto(url) {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Photo COSUMAF',
+            text: 'Découvrez cette photo',
+            url: url
+        });
+    } else {
+        alert("Le partage n’est pas supporté par ce navigateur.");
+    }
 }
