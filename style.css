@@ -30,7 +30,7 @@ body::before {
             to bottom,
             rgba(255, 255, 255, 0.90) 0%,    /* Blanc très léger */
             rgba(255, 255, 255, 0) 60%,     /* Transparence à 70% */
-            rgba(0, 0, 0) 100%         /* Noir très léger */
+            rgba(0, 0, 0 ) 100%         /* Noir très léger */
     );
 
     -webkit-mask-image: linear-gradient(
